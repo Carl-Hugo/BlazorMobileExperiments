@@ -15,6 +15,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.Windows.Input;
 using Scrutor;
+using Xamarin.Forms.Xaml;
 
 namespace TryBlazorMobileBinding
 {
@@ -26,13 +27,15 @@ namespace TryBlazorMobileBinding
             _host = Host.CreateDefaultBuilder()
                 .ConfigureServices((hostContext, services) =>
                 {
-                    // Register app-specific services
+                    // Register states/store
                     services
                         .AddSingleton<IStore, Store>()
                         .AddSingleton<AppState>()
                         .AddSingleton<CounterState>()
                         .AddSingleton<ErrorState>()
                     ;
+
+                    // Register libs
                     var thisAssembly = typeof(App).Assembly;
                     var logicAssembly = typeof(AppState).Assembly;
                     //services.AddAutoMapper(currentAssembly);
@@ -44,14 +47,14 @@ namespace TryBlazorMobileBinding
                         .As(typeof(IPipelineBehavior<,>))
                         .WithTransientLifetime()
                     );
-                    services.AddTransient(sp => DependencyService.Get<IAlertManager>());
+
+                    // Register app-specific services implementations
                     services.AddSingleton<INavigationService, XamarinNavigationService>();
+                    services.AddTransient(sp => DependencyService.Get<IAlertManager>());
                 })
                 .Build();
 
             _host.AddComponent<ShellPage>(parent: this);
-            //_host.AddComponent<HelloWorld>(parent: this);
-            //_host.AddComponent<Page2>(parent: this);
         }
 
         protected override void OnStart()
@@ -68,7 +71,7 @@ namespace TryBlazorMobileBinding
 
         public async Task UnhandledExceptionAsync(string source, Exception ex)
         {
-            var mediator = _host.Services.GetService<IMediator>();
+            //var mediator = _host.Services.GetService<IMediator>();
             //await mediator.Send(new Logic.Features.Errors.UnhandledExceptionOccurred.Command(source, ex));
         }
 
