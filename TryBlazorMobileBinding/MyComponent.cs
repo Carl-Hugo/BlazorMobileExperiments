@@ -1,4 +1,5 @@
 ﻿using Logic;
+using Logic.Models;
 using MediatR;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -38,6 +39,12 @@ namespace TryBlazorMobileBinding
         public Task GoToAsync(string route)
         {
             return SendAsync(new Logic.Features.Navs.GoToPage.Command(route));
+        }
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            Subscribe<AppState>();
         }
     }
 }
