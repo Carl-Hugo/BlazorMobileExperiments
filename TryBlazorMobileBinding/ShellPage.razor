@@ -1,0 +1,28 @@
+﻿@inherits MyComponent
+@*<StyleSheet Resource="App.css" Assembly="GetType().Assembly" />*@
+<Shell>
+    @*<FlyoutHeader>
+            <StackLayout>
+                <Label Text="Shell app header!" class="app-menu-header" />
+            </StackLayout>
+        </FlyoutHeader>*@
+    <ChildContent>
+        <ShellContent Route="home" Title="Home">
+            <HelloWorld />
+        </ShellContent>
+        <ShellContent Route="help" Title="Help">
+            <ContentPage>
+                <StackLayout>
+                    <Label Text="HELP page!" />
+                </StackLayout>
+            </ContentPage>
+        </ShellContent>
+        <ShellContent Route="page2" Title="Page 2">
+            <Page2 />
+        </ShellContent>
+    </ChildContent>
+</Shell>
+
+@code{
+    CounterState CounterState => GetState<CounterState>();
+}

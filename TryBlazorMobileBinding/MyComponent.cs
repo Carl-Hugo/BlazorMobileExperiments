@@ -25,11 +25,6 @@ namespace TryBlazorMobileBinding
             Store.Subscribe<TState>(StateHasChanged);
         }
 
-        public Task PublishAsync(object notification, CancellationToken cancellationToken = default)
-        {
-            return Mediator.Publish(notification, cancellationToken);
-        }
-
         public Task PublishAsync<TNotification>(TNotification notification, CancellationToken cancellationToken = default) where TNotification : INotification
         {
             return Mediator.Publish(notification, cancellationToken);
@@ -40,9 +35,9 @@ namespace TryBlazorMobileBinding
             return Mediator.Send(request, cancellationToken);
         }
 
-        public Task<object> SendAsync(object request, CancellationToken cancellationToken = default)
+        public Task GoToAsync(string route)
         {
-            return Mediator.Send(request, cancellationToken);
+            return SendAsync(new Logic.Features.Navs.GoToPage.Command(route));
         }
     }
 }

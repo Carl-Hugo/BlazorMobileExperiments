@@ -1,18 +1,16 @@
-@inherits MyComponent
+﻿@inherits MyComponent
 
 <ContentPage>
     <StackLayout Margin="new Thickness(20)">
 
-        <Label Text="@("Hello, World (" + Count + ")!")" FontSize="40" />
+        <Label Text="@("Page 2 (" + CounterState.Count + ")!")" FontSize="40" />
         <Counter />
-        <CounterBad />
 
     </StackLayout>
 </ContentPage>
 
 @code{
     CounterState CounterState => GetState<CounterState>();
-    int Count => CounterState.Count;
 
     protected override void OnInitialized()
     {

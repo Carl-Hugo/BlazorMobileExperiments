@@ -45,10 +45,13 @@ namespace TryBlazorMobileBinding
                         .WithTransientLifetime()
                     );
                     services.AddTransient(sp => DependencyService.Get<IAlertManager>());
+                    services.AddSingleton<INavigationService, XamarinNavigationService>();
                 })
                 .Build();
 
-            _host.AddComponent<HelloWorld>(parent: this);
+            _host.AddComponent<ShellPage>(parent: this);
+            //_host.AddComponent<HelloWorld>(parent: this);
+            //_host.AddComponent<Page2>(parent: this);
         }
 
         protected override void OnStart()

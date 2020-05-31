@@ -1,10 +1,10 @@
 @inherits MyComponent
 @using Logic.Features.Counter
 
-<Frame CornerRadius="10" BackgroundColor="Color.LightBlue">
+<Frame CornerRadius="10" BackgroundColor="Color.LightPink">
     <StackLayout Orientation="StackOrientation.Horizontal" HorizontalOptions="LayoutOptions.Center">
-        <Button Text="+" OnClick="@(async () => await SendAsync(new Increment.Command(CounterState)))" />
-        <Button Text="-" OnClick="@(async () => await SendAsync(new Decrement.Command(CounterState)))" />
+        <Button Text="+" OnClick="@(async () => await SendAsync(new Increment.Command(default)))" />
+        <Button Text="-" OnClick="@(async () => await SendAsync(new Increment.Command(default)))" />
 
         <Label Text="@("The button was clicked " + CounterState.Count + " times")"
                FontAttributes="FontAttributes.Bold"
