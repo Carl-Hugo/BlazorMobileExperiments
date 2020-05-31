@@ -1,19 +1,19 @@
 ﻿@inherits MyComponent
-@*<StyleSheet Resource="App.css" Assembly="GetType().Assembly" />*@
+
 <Shell>
-    @*<FlyoutHeader>
-            <StackLayout>
-                <Label Text="Shell app header!" class="app-menu-header" />
-            </StackLayout>
-        </FlyoutHeader>*@
+    <FlyoutHeader>
+        <StackLayout>
+            <Label Text="Some cool title!" class="app-menu-header" />
+        </StackLayout>
+    </FlyoutHeader>
     <ChildContent>
         <ShellContent Route="home" Title="Home">
             <HelloWorld />
         </ShellContent>
-        <ShellContent Route="help" Title="Help">
+        <ShellContent Route="empty" Title="Empty">
             <ContentPage>
                 <StackLayout>
-                    <Label Text="HELP page!" />
+                    <Label Text="This is an Empty page!" />
                 </StackLayout>
             </ContentPage>
         </ShellContent>
@@ -25,4 +25,10 @@
 
 @code{
     CounterState CounterState => GetState<CounterState>();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+    }
 }
