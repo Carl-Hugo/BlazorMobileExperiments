@@ -1,0 +1,21 @@
+@inherits MyComponent
+
+<ContentPage>
+    <StackLayout Margin="new Thickness(20)">
+
+        <Label Text="@("Hello, World (" + Count + ")!")" FontSize="40" />
+        <Counter />
+
+    </StackLayout>
+</ContentPage>
+
+@code{
+    CounterState CounterState => GetState<CounterState>();
+    int Count => CounterState.Count;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Subscribe<CounterState>();
+    }
+}

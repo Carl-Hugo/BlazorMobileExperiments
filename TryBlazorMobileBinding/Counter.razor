@@ -1,0 +1,54 @@
+@inherits MyComponent
+
+<Frame CornerRadius="10" BackgroundColor="Color.LightBlue">
+    <StackLayout Orientation="StackOrientation.Horizontal" HorizontalOptions="LayoutOptions.Center">
+        <Button Text="+" OnClick="@IncrementCount" />
+        <Button Text="-" OnClick="@DecrementCount" />
+
+        <Label Text="@("The button was clicked " + CounterState.Count + " times")"
+               FontAttributes="FontAttributes.Bold"
+               VerticalTextAlignment="TextAlignment.Center" />
+    </StackLayout>
+</Frame>
+
+<Frame CornerRadius="10" BackgroundColor="Color.LightPink">
+    <StackLayout Orientation="StackOrientation.Horizontal" HorizontalOptions="LayoutOptions.Center">
+        <Button Text="+" OnClick="@IncrementNullState" />
+        <Button Text="-" OnClick="@DecrementNullState" />
+
+        <Label Text="@("The button was clicked " + CounterState.Count + " times")"
+               FontAttributes="FontAttributes.Bold"
+               VerticalTextAlignment="TextAlignment.Center" />
+    </StackLayout>
+</Frame>
+
+@code
+{
+    CounterState CounterState => GetState<CounterState>();
+
+    async void IncrementCount()
+    {
+        await Mediator.Send(new Logic.Features.Counter.Increment.Command(CounterState));
+    }
+
+    async void DecrementCount()
+    {
+        await Mediator.Send(new Logic.Features.Counter.Decrement.Command(CounterState));
+    }
+
+    async void IncrementNullState()
+    {
+        await Mediator.Send(new Logic.Features.Counter.Increment.Command(default(CounterState)));
+    }
+
+    async void DecrementNullState()
+    {
+        await Mediator.Send(new Logic.Features.Counter.Decrement.Command(default(CounterState)));
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Subscribe<CounterState>();
+    }
+}
