@@ -1,4 +1,15 @@
 ﻿.app-menu-header
 {
-    padding: 1em;
+    padding: 10;
+    color: aqua;
+}
+
+label {
+    padding: 10;
+    color: dodgerblue;
+}
+
+Label {
+    padding: 10;
+    color: deeppink;
 }
