@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace TryBlazorMobileBinding.iOS
+namespace App.iOS
 {
     public class Application
     {
