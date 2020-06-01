@@ -1,4 +1,8 @@
-﻿.app-menu-header
+﻿/*
+    This file is never used (yet).
+    See https://github.com/xamarin/MobileBlazorBindings/issues/117
+*/
+.app-menu-header
 {
     padding: 10;
     color: aqua;
