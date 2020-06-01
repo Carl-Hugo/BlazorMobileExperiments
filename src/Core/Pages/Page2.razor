@@ -1,0 +1,15 @@
+﻿@inherits MyComponent
+@using Core.Features.Counter
+
+<ContentPage>
+    <StackLayout Margin="new Thickness(20)">
+
+        <Label Text="@("Page 2 (" + CounterState.Count + ")!")" FontSize="40" />
+        <Counter />
+
+    </StackLayout>
+</ContentPage>
+
+@code{
+    CounterState CounterState => GetState<CounterState>();
+}

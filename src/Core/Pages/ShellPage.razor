@@ -1,0 +1,33 @@
+﻿@inherits MyComponent
+
+<Shell>
+    <FlyoutHeader>
+        <StackLayout>
+            <Label Text="Some cool title!" class="app-menu-header" />
+        </StackLayout>
+    </FlyoutHeader>
+    <ChildContent>
+        <ShellContent Route="home" Title="Home">
+            <HelloWorld />
+        </ShellContent>
+        <ShellContent Route="empty" Title="Empty">
+            <ContentPage>
+                <StackLayout>
+                    <Label Text="This is an Empty page!" />
+                </StackLayout>
+            </ContentPage>
+        </ShellContent>
+        <ShellContent Route="page2" Title="Page 2">
+            <Page2 />
+        </ShellContent>
+    </ChildContent>
+</Shell>
+
+@code{
+    CounterState CounterState => GetState<CounterState>();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+}
