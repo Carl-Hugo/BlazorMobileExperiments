@@ -1,16 +1,12 @@
-﻿using AutoMapper;
-using FluentValidation;
+﻿using FluentValidation;
 using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Core.Features.Navs
 {
-    public class GoToPage
+    public class GoToSubPage
     {
         public class Command : IRequest
         {
@@ -37,8 +33,9 @@ namespace Core.Features.Navs
             protected override Task Handle(Command request, CancellationToken cancellationToken)
             {
                 var currentShell = Xamarin.Forms.Shell.Current;
+                var state = currentShell.CurrentState;
                 var query = request.Query == null ? "" : $"?{request.Query}";
-                return currentShell.GoToAsync($"//{request.Route}{query}");
+                return currentShell.GoToAsync($"{state.Location}/{request.Route}{query}");
             }
         }
     }
