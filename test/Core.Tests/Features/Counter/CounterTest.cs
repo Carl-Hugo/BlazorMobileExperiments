@@ -84,6 +84,5 @@ namespace Core.Features.Counter
                 ));
             }
         }
-
     }
 }
