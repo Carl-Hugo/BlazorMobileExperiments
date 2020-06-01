@@ -8,9 +8,9 @@ using Android.Widget;
 using Android.OS;
 using System.Threading.Tasks;
 
-namespace TryBlazorMobileBinding.Droid
+namespace App.Droid
 {
-    [Activity(Label = "TryBlazorMobileBinding", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "App", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         private App _app;
