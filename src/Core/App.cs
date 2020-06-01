@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using Scrutor;
 using Xamarin.Forms.Xaml;
+using Core.Pages;
 
 namespace Core
 {
@@ -49,7 +50,6 @@ namespace Core
                     );
 
                     // Register app-specific services implementations
-                    services.AddSingleton<INavigationService, XamarinNavigationService>();
                     services.AddTransient(sp => DependencyService.Get<IAlertManager>());
                 })
                 .Build();

@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Core
 {
+    /// <summary>
+    /// Represents a error message to display to the user.
+    /// Each OS should provide an implementation for this service.
+    /// </summary>
     public interface IAlertManager
     {
         void Show(string message);
