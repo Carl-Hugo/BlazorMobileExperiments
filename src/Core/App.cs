@@ -29,32 +29,37 @@ namespace Core
             _host = Host.CreateDefaultBuilder()
                 .ConfigureServices((hostContext, services) =>
                 {
-                    // Register states/store
-                    services
-                        .AddSingleton<IStore, Store>()
-                        .AddSingleton<AppState>()
-                        .AddSingleton<CounterState>()
-                        .AddSingleton<ErrorState>()
-                    ;
-
-                    // Register libs/scan assembly
-                    var coreAssembly = typeof(AppState).Assembly;
-                    //services.AddAutoMapper(currentAssembly);
-                    services.AddValidatorsFromAssembly(coreAssembly);
-                    services.AddMediatR(coreAssembly);
-                    services.Scan(s => s
-                        .FromAssemblies(coreAssembly)
-                        .AddClasses(classes => classes.AssignableTo(typeof(ExceptionBehavior<,>)))
-                        .As(typeof(IPipelineBehavior<,>))
-                        .WithTransientLifetime()
-                    );
-
-                    // Register OS-specific services implementations
-                    services.AddTransient(sp => DependencyService.Get<IAlertManager>());
+                    ConfigureServices(services);
                 })
                 .Build();
 
             _host.AddComponent<ShellPage>(parent: this);
+        }
+
+        public static void ConfigureServices(IServiceCollection services)
+        {
+            // Register states/store
+            services
+                .AddSingleton<IStore, Store>()
+                .AddSingleton<AppState>()
+                .AddSingleton<CounterState>()
+                .AddSingleton<ErrorState>()
+            ;
+
+            // Register libs/scan assembly
+            var coreAssembly = typeof(AppState).Assembly;
+            //services.AddAutoMapper(currentAssembly);
+            services.AddValidatorsFromAssembly(coreAssembly);
+            services.AddMediatR(coreAssembly);
+            services.Scan(s => s
+                .FromAssemblies(coreAssembly)
+                .AddClasses(classes => classes.AssignableTo(typeof(ExceptionBehavior<,>)))
+                .As(typeof(IPipelineBehavior<,>))
+                .WithTransientLifetime()
+            );
+
+            // Register OS-specific services implementations
+            services.AddTransient(sp => DependencyService.Get<IAlertManager>());
         }
 
         protected override void OnStart()
