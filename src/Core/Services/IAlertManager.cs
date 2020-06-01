@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core
+namespace Core.Services
 {
     /// <summary>
     /// Represents a error message to display to the user.

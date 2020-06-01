@@ -1,8 +1,11 @@
 ﻿using Core;
 using Core.Models;
+using Core.Services;
 using MediatR;
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,35 +19,30 @@ namespace Core
         [Inject]
         public IMediator Mediator { get; set; }
 
-        public TState GetState<TState>() where TState : class
+        protected virtual TState GetState<TState>() where TState : class
         {
+            Subscribe<TState>();
             return Store.GetState<TState>();
         }
 
-        public void Subscribe<TState>() where TState : class
+        protected virtual void Subscribe<TState>() where TState : class
         {
             Store.Subscribe<TState>(StateHasChanged);
         }
 
-        public Task PublishAsync<TNotification>(TNotification notification, CancellationToken cancellationToken = default) where TNotification : INotification
+        protected virtual Task PublishAsync<TNotification>(TNotification notification, CancellationToken cancellationToken = default) where TNotification : INotification
         {
             return Mediator.Publish(notification, cancellationToken);
         }
 
-        public Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken = default)
+        protected virtual Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken = default)
         {
             return Mediator.Send(request, cancellationToken);
         }
 
-        public Task GoToAsync(string route)
+        protected virtual Task GoToAsync(string route)
         {
-            return SendAsync(new Core.Features.Navs.GoToPage.Command(route));
-        }
-
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-            Subscribe<AppState>();
+            return SendAsync(new Features.Navs.GoToPage.Command(route));
         }
     }
 }

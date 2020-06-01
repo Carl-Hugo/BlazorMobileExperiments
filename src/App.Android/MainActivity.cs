@@ -25,6 +25,8 @@ namespace App.Droid
             _app = new Core.App();
             LoadApplication(_app);
 
+            // The following does not seems to be intercepting exceptions
+            // TODO: investigate this
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
             AndroidEnvironment.UnhandledExceptionRaiser += AndroidEnvironment_UnhandledExceptionRaiser;
@@ -48,7 +50,6 @@ namespace App.Droid
             if (e.ExceptionObject is Exception ex)
             {
                 await _app.UnhandledExceptionAsync("CurrentDomain.UnhandledException", ex);
-
             }
             else
             {

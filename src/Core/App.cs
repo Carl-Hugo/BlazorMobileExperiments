@@ -17,6 +17,7 @@ using System.Windows.Input;
 using Scrutor;
 using Xamarin.Forms.Xaml;
 using Core.Pages;
+using Core.Services;
 
 namespace Core
 {
@@ -36,20 +37,19 @@ namespace Core
                         .AddSingleton<ErrorState>()
                     ;
 
-                    // Register libs
-                    var thisAssembly = typeof(App).Assembly;
-                    var CoreAssembly = typeof(AppState).Assembly;
+                    // Register libs/scan assembly
+                    var coreAssembly = typeof(AppState).Assembly;
                     //services.AddAutoMapper(currentAssembly);
-                    services.AddValidatorsFromAssembly(CoreAssembly);
-                    services.AddMediatR(CoreAssembly);
+                    services.AddValidatorsFromAssembly(coreAssembly);
+                    services.AddMediatR(coreAssembly);
                     services.Scan(s => s
-                        .FromAssemblies(CoreAssembly)
+                        .FromAssemblies(coreAssembly)
                         .AddClasses(classes => classes.AssignableTo(typeof(ExceptionBehavior<,>)))
                         .As(typeof(IPipelineBehavior<,>))
                         .WithTransientLifetime()
                     );
 
-                    // Register app-specific services implementations
+                    // Register OS-specific services implementations
                     services.AddTransient(sp => DependencyService.Get<IAlertManager>());
                 })
                 .Build();
@@ -71,76 +71,8 @@ namespace Core
 
         public async Task UnhandledExceptionAsync(string source, Exception ex)
         {
-            //var mediator = _host.Services.GetService<IMediator>();
-            //await mediator.Send(new Core.Features.Errors.UnhandledExceptionOccurred.Command(source, ex));
-        }
-
-
-    }
-
-    public static class ScanHelper
-    {
-        public static bool CouldCloseTo(this Type openConcretion, Type closedInterface)
-        {
-            var openInterface = closedInterface.GetGenericTypeDefinition();
-            var arguments = closedInterface.GenericTypeArguments;
-
-            var concreteArguments = openConcretion.GenericTypeArguments;
-            return arguments.Length == concreteArguments.Length && openConcretion.CanBeCastTo(openInterface);
-        }
-
-        public static bool CanBeCastTo(this Type pluggedType, Type pluginType)
-        {
-            if (pluggedType == null) return false;
-
-            if (pluggedType == pluginType) return true;
-
-            return pluginType.GetTypeInfo().IsAssignableFrom(pluggedType.GetTypeInfo());
-        }
-
-        public static bool IsOpenGeneric(this Type type)
-        {
-            return type.GetTypeInfo().IsGenericTypeDefinition || type.GetTypeInfo().ContainsGenericParameters;
-        }
-
-        public static IEnumerable<Type> FindInterfacesThatClose(this Type pluggedType, Type templateType)
-        {
-            return FindInterfacesThatClosesCore(pluggedType, templateType).Distinct();
-        }
-
-        public static IEnumerable<Type> FindInterfacesThatClosesCore(Type pluggedType, Type templateType)
-        {
-            if (pluggedType == null) yield break;
-
-            if (!pluggedType.IsConcrete()) yield break;
-
-            if (templateType.GetTypeInfo().IsInterface)
-            {
-                foreach (
-                    var interfaceType in
-                    pluggedType.GetInterfaces()
-                        .Where(type => type.GetTypeInfo().IsGenericType && (type.GetGenericTypeDefinition() == templateType)))
-                {
-                    yield return interfaceType;
-                }
-            }
-            else if (pluggedType.GetTypeInfo().BaseType.GetTypeInfo().IsGenericType &&
-                     (pluggedType.GetTypeInfo().BaseType.GetGenericTypeDefinition() == templateType))
-            {
-                yield return pluggedType.GetTypeInfo().BaseType;
-            }
-
-            if (pluggedType.GetTypeInfo().BaseType == typeof(object)) yield break;
-
-            foreach (var interfaceType in FindInterfacesThatClosesCore(pluggedType.GetTypeInfo().BaseType, templateType))
-            {
-                yield return interfaceType;
-            }
-        }
-
-        public static bool IsConcrete(this Type type)
-        {
-            return !type.GetTypeInfo().IsAbstract && !type.GetTypeInfo().IsInterface;
+            var mediator = _host.Services.GetRequiredService<IMediator>();
+            await mediator.Publish(new Features.Errors.UnhandledExceptionOccurred.Event(source, ex));
         }
     }
 }

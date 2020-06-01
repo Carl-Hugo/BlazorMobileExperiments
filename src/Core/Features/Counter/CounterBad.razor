@@ -1,5 +1,4 @@
 @inherits MyComponent
-@using Core.Features.Counter
 
 <Frame CornerRadius="10" BackgroundColor="Color.LightPink">
     <StackLayout Orientation="StackOrientation.Horizontal" HorizontalOptions="LayoutOptions.Center">
@@ -15,10 +14,4 @@
 @code
 {
     CounterState CounterState => GetState<CounterState>();
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-        Subscribe<CounterState>();
-    }
 }

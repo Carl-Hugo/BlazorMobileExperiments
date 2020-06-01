@@ -12,10 +12,4 @@
 
 @code{
     CounterState CounterState => GetState<CounterState>();
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-        Subscribe<CounterState>();
-    }
 }

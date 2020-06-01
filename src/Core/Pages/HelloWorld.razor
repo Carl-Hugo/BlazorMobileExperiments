@@ -1,12 +1,14 @@
 @inherits MyComponent
 @using Core.Features.Counter
- 
+@using Core.Features.Errors
+
 <ContentPage>
     <StackLayout Margin="new Thickness(20)">
 
         <Label Text="@("Hello, World (" + Count + ")!")" FontSize="40" />
         <Counter />
         <CounterBad />
+        <Throw />
 
     </StackLayout>
 </ContentPage>
@@ -14,10 +16,4 @@
 @code{
     CounterState CounterState => GetState<CounterState>();
     int Count => CounterState.Count;
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-        Subscribe<CounterState>();
-    }
 }
