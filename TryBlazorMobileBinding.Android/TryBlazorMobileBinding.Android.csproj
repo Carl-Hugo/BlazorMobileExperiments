@@ -88,10 +88,6 @@
     <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Logic\Logic.csproj">
-      <Project>{bd379b64-4e2b-46e6-95b9-87b547c42e4f}</Project>
-      <Name>Logic</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TryBlazorMobileBinding\TryBlazorMobileBinding.csproj">
       <Project>{F7966D5B-8817-4631-9894-BE1BD61E0534}</Project>
       <Name>TryBlazorMobileBinding</Name>
