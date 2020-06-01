@@ -6,7 +6,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace TryBlazorMobileBinding
+namespace Core
 {
     public class MyComponent : ComponentBase
     {

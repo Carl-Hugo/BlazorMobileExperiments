@@ -17,7 +17,7 @@ using System.Windows.Input;
 using Scrutor;
 using Xamarin.Forms.Xaml;
 
-namespace TryBlazorMobileBinding
+namespace Core
 {
     public class App : Application
     {

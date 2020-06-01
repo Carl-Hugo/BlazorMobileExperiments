@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TryBlazorMobileBinding
+namespace Core
 {
     public class XamarinNavigationService : INavigationService
     {
