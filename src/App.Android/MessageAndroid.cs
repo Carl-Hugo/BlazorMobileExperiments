@@ -1,6 +1,6 @@
 ﻿using Android.App;
 using Android.Widget;
-using Logic;
+using Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;

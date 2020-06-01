@@ -3,11 +3,11 @@ using Microsoft.MobileBlazorBindings;
 using Microsoft.Extensions.Hosting;
 using Xamarin.Forms;
 using Microsoft.Extensions.DependencyInjection;
-using Logic.Models;
+using Core.Models;
 using MediatR;
-using Logic;
+using Core;
 using FluentValidation;
-using Logic.Behaviors;
+using Core.Behaviors;
 using System.Threading.Tasks;
 using MediatR.Pipeline;
 using System.Linq;
@@ -37,12 +37,12 @@ namespace Core
 
                     // Register libs
                     var thisAssembly = typeof(App).Assembly;
-                    var logicAssembly = typeof(AppState).Assembly;
+                    var CoreAssembly = typeof(AppState).Assembly;
                     //services.AddAutoMapper(currentAssembly);
-                    services.AddValidatorsFromAssembly(logicAssembly);
-                    services.AddMediatR(logicAssembly);
+                    services.AddValidatorsFromAssembly(CoreAssembly);
+                    services.AddMediatR(CoreAssembly);
                     services.Scan(s => s
-                        .FromAssemblies(logicAssembly)
+                        .FromAssemblies(CoreAssembly)
                         .AddClasses(classes => classes.AssignableTo(typeof(ExceptionBehavior<,>)))
                         .As(typeof(IPipelineBehavior<,>))
                         .WithTransientLifetime()
@@ -72,7 +72,7 @@ namespace Core
         public async Task UnhandledExceptionAsync(string source, Exception ex)
         {
             //var mediator = _host.Services.GetService<IMediator>();
-            //await mediator.Send(new Logic.Features.Errors.UnhandledExceptionOccurred.Command(source, ex));
+            //await mediator.Send(new Core.Features.Errors.UnhandledExceptionOccurred.Command(source, ex));
         }
 
 

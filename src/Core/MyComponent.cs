@@ -1,5 +1,5 @@
-﻿using Logic;
-using Logic.Models;
+﻿using Core;
+using Core.Models;
 using MediatR;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -38,7 +38,7 @@ namespace Core
 
         public Task GoToAsync(string route)
         {
-            return SendAsync(new Logic.Features.Navs.GoToPage.Command(route));
+            return SendAsync(new Core.Features.Navs.GoToPage.Command(route));
         }
 
         protected override void OnInitialized()

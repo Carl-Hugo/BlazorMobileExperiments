@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Logic.Features.Navs
+namespace Core.Features.Navs
 {
     public class GoToPage
     {

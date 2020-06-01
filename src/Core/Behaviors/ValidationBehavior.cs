@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Logic.Features.Errors;
+using Core.Features.Errors;
 using MediatR;
 using MediatR.Pipeline;
 using System;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Logic.Behaviors
+namespace Core.Behaviors
 {
     //public class ValidationBehavior<TRequest> : IRequestPreProcessor<TRequest>
     //    where TRequest : IRequest

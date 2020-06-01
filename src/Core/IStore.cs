@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Logic
+namespace Core
 {
     public interface IStore
     {

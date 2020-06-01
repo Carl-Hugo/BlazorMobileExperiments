@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
-using Logic.Models;
+using Core.Models;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Logic.Features.Errors
+namespace Core.Features.Errors
 {
     public class UnhandledExceptionOccurred
     {

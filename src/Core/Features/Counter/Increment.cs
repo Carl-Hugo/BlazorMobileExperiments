@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation;
-using Logic.Behaviors;
-using Logic.Models;
+using Core.Behaviors;
+using Core.Models;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Logic.Features.Counter
+namespace Core.Features.Counter
 {
     public class Increment
     {
