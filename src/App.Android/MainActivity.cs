@@ -13,7 +13,7 @@ namespace App.Droid
     [Activity(Label = "App", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
-        private App _app;
+        private Core.App _app;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             TabLayoutResource = Resource.Layout.Tabbar;
@@ -22,7 +22,7 @@ namespace App.Droid
             base.OnCreate(savedInstanceState);
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            _app = new App();
+            _app = new Core.App();
             LoadApplication(_app);
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
