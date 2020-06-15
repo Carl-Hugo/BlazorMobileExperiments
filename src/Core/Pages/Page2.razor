@@ -2,14 +2,69 @@
 @using Core.Features.Counter
 
 <ContentPage>
-    <StackLayout Margin="new Thickness(20)">
-
-        <Label Text="@("Page 2 (" + CounterState.Count + ")!")" FontSize="40" />
-        <Counter />
-
-    </StackLayout>
+    <ScrollView>
+        <StackLayout Margin="new Thickness(20)">
+            <Label Text="@($"Page 2 ({CounterState.Count})!")" FontSize="40" />
+            <Frame>
+                <StackLayout>
+                    <ActivityIndicator IsRunning="IsLoading" IsVisible="IsVisible" />
+                    <StackLayout Orientation="StackOrientation.Horizontal">
+                        <Label Text="Is loading?" />
+                        <Switch IsToggled="IsLoading" IsToggledChanged="value => IsLoading = value" />
+                    </StackLayout>
+                    <StackLayout Orientation="StackOrientation.Horizontal">
+                        <Label Text="IsVisible?" />
+                        <Switch IsToggled="IsVisible" IsToggledChanged="(value) => IsVisible = value" />
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+            <Frame>
+                <StackLayout>
+                    <Label Text="Progress" />
+                    <ProgressBar Progress="ProgressValue" ProgressColor="ProgressColor" />
+                </StackLayout>
+            </Frame>
+            <Frame>
+                <Counter />
+            </Frame>
+            <Frame>
+                <StackLayout>
+                    <Label Text="@($"[{SliderValue:00}]")" />
+                    <Slider Minimum="-10"
+                            Maximum="10"
+                            Value="@CounterState.Count"
+                            BackgroundColor="Color.Black"
+                            ValueChanged="SliderCounterSliderChanged"
+                            OnDragCompleted="SliderOnDragCompleted" />
+                </StackLayout>
+            </Frame>
+            <Frame>
+                <Label Text="@Lorem" />
+            </Frame>
+            <Button Text="Back Home" OnClick="async () => await this.GoHomeAsync()" />
+        </StackLayout>
+    </ScrollView>
 </ContentPage>
 
 @code{
     CounterState CounterState => GetState<CounterState>();
+
+    Color ProgressColor => CounterState.Count < 0 ? Color.Red : Color.Green;
+    double ProgressValue => Math.Abs(CounterState.Count) / 10.0;
+    bool IsLoading { get; set; } = true;
+    bool IsVisible { get; set; } = true;
+
+    double SliderValue { get; set; }
+    void SliderCounterSliderChanged(double value) => SliderValue = value;
+    async void SliderOnDragCompleted()=> await SendAsync(new Core.Features.Counter.Set.Command((int)SliderValue));
+
+    string Lorem => @"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nulla facilisi etiam dignissim diam quis enim lobortis scelerisque fermentum. Et netus et malesuada fames ac turpis egestas sed. In nisl nisi scelerisque eu ultrices vitae auctor eu. Leo urna molestie at elementum eu facilisis. Aliquet porttitor lacus luctus accumsan tortor posuere ac ut. Condimentum mattis pellentesque id nibh tortor id aliquet. In est ante in nibh mauris cursus mattis molestie. Id porta nibh venenatis cras sed felis eget. Lobortis feugiat vivamus at augue. Mauris sit amet massa vitae.
+
+A iaculis at erat pellentesque adipiscing commodo elit at imperdiet. At lectus urna duis convallis convallis tellus. Aliquam ultrices sagittis orci a scelerisque purus semper. Maecenas pharetra convallis posuere morbi leo urna molestie. Ut consequat semper viverra nam libero justo. Pharetra convallis posuere morbi leo. Et ligula ullamcorper malesuada proin. Integer malesuada nunc vel risus commodo. Cursus in hac habitasse platea. Nulla facilisi etiam dignissim diam quis enim lobortis scelerisque. Nullam eget felis eget nunc lobortis mattis aliquam faucibus. Commodo nulla facilisi nullam vehicula ipsum a arcu. Morbi tincidunt augue interdum velit. Vitae et leo duis ut diam quam nulla porttitor massa. Velit aliquet sagittis id consectetur. Donec enim diam vulputate ut pharetra sit amet.
+
+Est lorem ipsum dolor sit amet consectetur adipiscing. Facilisi morbi tempus iaculis urna id volutpat. Molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit. Tellus elementum sagittis vitae et leo duis ut diam. At lectus urna duis convallis convallis tellus id. Quam quisque id diam vel quam elementum pulvinar. Sed risus ultricies tristique nulla aliquet enim tortor at auctor. Lobortis mattis aliquam faucibus purus. Fermentum posuere urna nec tincidunt praesent semper. Turpis massa tincidunt dui ut ornare lectus sit. Diam phasellus vestibulum lorem sed risus ultricies tristique. Ac orci phasellus egestas tellus rutrum tellus. Tristique senectus et netus et malesuada fames ac turpis egestas. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien.
+
+Viverra vitae congue eu consequat. Cursus sit amet dictum sit amet justo donec enim diam. Tortor vitae purus faucibus ornare suspendisse. Eu ultrices vitae auctor eu augue ut lectus. Tortor posuere ac ut consequat semper. Etiam tempor orci eu lobortis elementum nibh. Habitasse platea dictumst quisque sagittis purus sit. Netus et malesuada fames ac turpis egestas maecenas pharetra convallis. Donec enim diam vulputate ut. Vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique. Vel facilisis volutpat est velit egestas dui id ornare. Purus ut faucibus pulvinar elementum integer enim neque volutpat. Nunc sed blandit libero volutpat sed cras ornare arcu. Scelerisque varius morbi enim nunc faucibus a pellentesque. Eleifend donec pretium vulputate sapien nec sagittis. At erat pellentesque adipiscing commodo elit at imperdiet dui. Cursus metus aliquam eleifend mi in nulla posuere sollicitudin aliquam.
+
+Euismod nisi porta lorem mollis aliquam. Urna id volutpat lacus laoreet non curabitur gravida. Eu sem integer vitae justo eget magna fermentum. At urna condimentum mattis pellentesque id nibh tortor id aliquet. Eu facilisis sed odio morbi. Amet est placerat in egestas erat imperdiet. Pharetra massa massa ultricies mi quis hendrerit dolor magna eget. A arcu cursus vitae congue mauris. Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin. Nulla aliquet porttitor lacus luctus accumsan. Mauris a diam maecenas sed enim ut sem.";
 }
