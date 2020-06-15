@@ -15,23 +15,7 @@ namespace Core.Features.Counter
 {
     public class Increment
     {
-        public class Command : IRequest
-        {
-            public Command(CounterState state)
-            {
-                State = state;//?? throw new ArgumentNullException(nameof(state));
-            }
-
-            public CounterState State { get; }
-        }
-
-        public class Validator : AbstractValidator<Command>
-        {
-            public Validator()
-            {
-                RuleFor(x => x.State).NotNull();
-            }
-        }
+        public class Command : IRequest { }
 
         public class Handler : AsyncRequestHandler<Command>
         {
@@ -43,8 +27,9 @@ namespace Core.Features.Counter
 
             protected override Task Handle(Command request, CancellationToken cancellationToken)
             {
-                request.State.Count++;
-                _store.SetState(request.State);
+                var state = _store.GetState<CounterState>();
+                state.Count++;
+                _store.SetState(state);
                 return Task.CompletedTask;
             }
         }

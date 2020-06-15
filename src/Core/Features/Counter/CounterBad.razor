@@ -2,8 +2,8 @@
 
 <Frame CornerRadius="10" BackgroundColor="Color.LightPink">
     <StackLayout Orientation="StackOrientation.Horizontal" HorizontalOptions="LayoutOptions.Center">
-        <Button Text="+" OnClick="@(async () => await SendAsync(new Increment.Command(default)))" />
-        <Button Text="-" OnClick="@(async () => await SendAsync(new Increment.Command(default)))" />
+        <Button Text="+" OnClick="@(async () => await SendAsync(new Increment.Command()))" />
+        <Button Text="-" OnClick="@(async () => await SendAsync(new Decrement.Command(default)))" />
 
         <Label Text="@("The button was clicked " + CounterState.Count + " times")"
                FontAttributes="FontAttributes.Bold"
