@@ -40,7 +40,7 @@ namespace Core
             return Mediator.Send(request, cancellationToken);
         }
 
-        protected virtual Task GoToAsync(string route)
+        protected internal virtual Task GoToAsync(string route)
         {
             return SendAsync(new Features.Navs.GoToPage.Command(route));
         }
