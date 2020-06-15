@@ -27,11 +27,6 @@ namespace Core.Services
 
         public void SetState<TState>(TState state) where TState : class
         {
-            UpdateStateSubscriber<TState>();
-        }
-
-        private void UpdateStateSubscriber<TState>() where TState : class
-        {
             var type = typeof(TState);
             if (_subscribers.ContainsKey(type))
             {
