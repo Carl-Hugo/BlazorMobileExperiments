@@ -1,6 +1,6 @@
 ﻿@inherits MyComponent
 
-<Frame CornerRadius="10" BackgroundColor="Color.LightBlue">
+<Frame CornerRadius="10" BackgroundColor="Color.LightPink">
     <StackLayout Orientation="StackOrientation.Horizontal" HorizontalOptions="LayoutOptions.Center">
         <Button Text="Throw (pipeline)" OnClick="@(async () => await SendAsync(new Command(new Exception("Boom!"))))" />
         <Button Text="Throw (C#)" OnClick="@(() => throw new Exception("Boom!"))" />
