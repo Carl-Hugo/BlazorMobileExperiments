@@ -17,7 +17,7 @@ namespace Core.Features.Navs
             public Command(string route, string query = null)
             {
                 Route = route ?? throw new ArgumentNullException(nameof(route));
-                Query = query ?? throw new ArgumentNullException(nameof(query));
+                Query = query;
             }
 
             public string Route { get; }
