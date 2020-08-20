@@ -26,13 +26,14 @@ namespace Core
         private readonly IHost _host;
         public App()
         {
-            _host = Host.CreateDefaultBuilder()
+            _host = MobileBlazorBindingsHost.CreateDefaultBuilder()
                 .ConfigureServices((hostContext, services) =>
                 {
                     ConfigureServices(services);
                 })
                 .Build();
 
+            MainPage = new ContentPage();
             _host.AddComponent<ShellPage>(parent: this);
         }
 
